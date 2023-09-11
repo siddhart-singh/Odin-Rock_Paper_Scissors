@@ -33,24 +33,36 @@ function playRound(playerSelection = '', computerSelection = ''){
 function computeResult(playerParity, computerParity, optionsArray){
     if (Math.abs(playerParity - computerParity) != (optionsArray.length - 1)){
         if (playerParity > computerParity){
-            return [`You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(optionsArray[computerParity])}`,1];
+            return printComputeResult("win", playerParity, computerParity, optionsArray)
         }
 
         else if(computerParity == playerParity){
-            return [`Draw! Both picked ${titleCase(optionsArray[playerParity])}`,2];
+            return printComputeResult("draw", playerParity, computerParity, optionsArray)
         }
 
         else{
-            return [`You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(optionsArray[playerParity])}`,0];
+            return printComputeResult("lose", playerParity, computerParity, optionsArray)
         }
     }
     else{
         if (playerParity < computerParity){
-            return [`You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(optionsArray[computerParity])}`, 1];
+            return printComputeResult("win", playerParity, computerParity, optionsArray)
         }
         else{
-            return [`You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(optionsArray[playerParity])}`,0];
+            return printComputeResult("lose", playerParity, computerParity, optionsArray)
         }   
+    }
+}
+
+function printComputeResult(result, playerParity, computerParity, optionsArray){
+    if(result === "win"){
+        return [`You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(optionsArray[computerParity])}`, 1]
+    }
+    else if (result === "lose"){
+        return [`You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(optionsArray[playerParity])}`,0]
+    }
+    else{
+        return [`Draw! Both picked ${titleCase(optionsArray[playerParity])}`,2]
     }
 }
 
