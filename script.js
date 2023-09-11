@@ -26,30 +26,30 @@ function playRound(playerSelection = '', computerSelection = ''){
     const optionsArray = ["rock", "paper", "scissor"];
     const playerParity = optionsArray.indexOf(playerSelection.toLowerCase());
     const computerParity = optionsArray.indexOf(computerSelection.toLowerCase());
-    return computerResult(playerParity, computerParity, optionsArray);
+    return computeResult(playerParity, computerParity, optionsArray);
     
 }
 
-function computerResult(playerParity, computerParity, optionsArray){
+function computeResult(playerParity, computerParity, optionsArray){
     if (Math.abs(playerParity - computerParity) != (optionsArray.length - 1)){
         if (playerParity > computerParity){
-            return [`You Win! ${optionsArray[playerParity]} beats ${optionsArray[computerParity]}`,1];
+            return [`You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(optionsArray[computerParity])}`,1];
         }
 
         else if(computerParity == playerParity){
-            return [`Draw! Both picked ${optionsArray[playerParity]}`,2];
+            return [`Draw! Both picked ${titleCase(optionsArray[playerParity])}`,2];
         }
 
         else{
-            return [`You Lose! ${optionsArray[computerParity]} beats ${optionsArray[playerParity]}`,0];
+            return [`You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(optionsArray[playerParity])}`,0];
         }
     }
     else{
         if (playerParity < computerParity){
-            return [`You Win! ${optionsArray[playerParity]} beats ${optionsArray[computerParity]}`, 1];
+            return [`You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(optionsArray[computerParity])}`, 1];
         }
         else{
-            return [`You Lose! ${optionsArray[computerParity]} beats ${optionsArray[playerParity]}`,0];
+            return [`You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(optionsArray[playerParity])}`,0];
         }   
     }
 }
@@ -79,6 +79,16 @@ function getResult(playerScore, computerScore){
         return "You Won!"
     } else{
         return "You Lost!"
+    }
+}
+
+function titleCase(str = ''){
+    if( str.length < 1){
+        return str;
+    }else if(str.length == 1){
+        return str.toUpperCase();
+    }else{
+        return str[0].toUpperCase() + str.slice(1,str.length);
     }
 }
 
