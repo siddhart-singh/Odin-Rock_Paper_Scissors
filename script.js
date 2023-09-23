@@ -5,7 +5,7 @@ function getPlayerChoice(){
     let incorrectInput = true;
     const avaliableChoice = ["rock", "paper", "scissor"];
     do{
-        let playerChoice = prompt("Rock, Paper or Scissor? ");
+        // let playerChoice = prompt("Rock, Paper or Scissor? ");
         if(avaliableChoice.includes(playerChoice.toLowerCase())){
             incorrectInput = false;
             return playerChoice.toLowerCase();
