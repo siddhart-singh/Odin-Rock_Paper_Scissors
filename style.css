@@ -8,8 +8,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Dela Gothic One', cursive;
-
+  font-family: "Dela Gothic One", cursive;
 }
 
 .hidden {
@@ -18,38 +17,39 @@
 
 body {
   background-color: rgb(255, 64, 50);
-  
+
   height: 100vh;
   width: 100vw;
-  
 }
-section{
+section {
   display: flex;
   max-width: 1440px;
   padding: 12px;
   width: 100%;
   height: 100%;
+  margin: auto;
 }
-.score{
-    /* position: absolute;
+.score {
+  /* position: absolute;
     left: 2%;
     top: 25%;
     z-index: -1; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 96px;
-    padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 96px;
+  padding: 24px;
 }
 
-.score img{
-    width: 90px;
-    height: 90px;
+.score img {
+  width: 90px;
+  height: 90px;
 }
 
-.computer-score, .player-score{
+.computer-score,
+.player-score {
   flex: 1;
   display: flex;
   justify-content: flex-end;
@@ -57,43 +57,39 @@ section{
   flex-direction: column;
 }
 
-.player-score{
+.player-score {
   justify-content: flex-start;
 }
 
-
 main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-header{
-    position: relative;
+header {
+  position: relative;
 }
 
-
-h1{
-    font-family: 'Lilita One', cursive;
-    font-weight: 700;
-    font-size: 64px;
-    color: rgb(255, 255, 255);
-    transform: scale(1.1);
+h1 {
+  font-family: "Lilita One", cursive;
+  font-weight: 700;
+  font-size: 64px;
+  color: rgb(255, 255, 255);
+  transform: scale(1.1);
 }
 
-
-.round{
-    
-    position: absolute;
-    font-size: 55vh;
-    margin: auto;
-    top: 24%;
-    font-family: 'Mooli', sans-serif;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: 'Lilita One', cursive;
-    z-index: -1;
+.round {
+  position: absolute;
+  font-size: 55vh;
+  margin: auto;
+  top: 24%;
+  font-family: "Mooli", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: "Lilita One", cursive;
+  z-index: -1;
 }
 
 .computer,
@@ -107,11 +103,11 @@ h1{
   margin-left: 24px;
 }
 
-.computer{
+.computer {
   margin-bottom: 128px;
 }
 
-.player{
+.player {
   margin-top: 128px;
 }
 
@@ -132,16 +128,16 @@ h1{
   transition: all 0.2s ease-out;
 }
 
-.end-result{
+.end-result {
   font-size: 128px;
-  top:45%
+  top: 45%;
 }
 
-.clicked{
+.clicked {
   transform: scale(1.1);
 }
 
-footer{
+footer {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -149,10 +145,9 @@ footer{
   font-weight: 700;
   color: white;
   width: 100vw;
-
 }
 
-.social{
+.social {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,21 +155,20 @@ footer{
   left: 1%;
 }
 
-.social a{
+.social a {
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-
 }
 
-.social img{
+.social img {
   width: 50px;
   height: 50px;
 }
 
-.instructions{
+.instructions {
   position: absolute;
   right: 1%;
-  top: 30%
+  top: 30%;
 }
