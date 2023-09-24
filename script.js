@@ -39,8 +39,9 @@ function init() {
 
   playerChoice.addEventListener("click", (e) => {
     if (round == 5) {
-      reset()
-    }else{
+      reset();
+    } else {
+      em(e.target);
       game(e.target.alt.split("-")[1]);
     }
   });
@@ -55,7 +56,13 @@ function reset() {
   printResult();
   displayScoreIcon(currentPlayerScore, currentComputerScore);
   displayScoreValue();
-  
+}
+
+function em(el) {
+  el.classList.add("clicked");
+  setTimeout(() => {
+    el.classList.remove("clicked");
+  }, 100);
 }
 
 function getComputerChoice() {
@@ -152,18 +159,18 @@ function printComputeResult(
   }
 }
 
-function displayScoreValue(result="reset"){
-  if(result === "win"){
+function displayScoreValue(result = "reset") {
+  if (result === "win") {
     playerScoreBoard[currentPlayerScore].classList.add("hidden");
     playerScoreBoard[++currentPlayerScore].classList.remove("hidden");
-  }else if(result === "lose"){
+  } else if (result === "lose") {
     computerScoreBoard[currentComputerScore].classList.add("hidden");
     computerScoreBoard[++currentComputerScore].classList.remove("hidden");
-  }else{
-    for(let el of computerScoreBoard){
+  } else {
+    for (let el of computerScoreBoard) {
       el.classList.add("hidden");
     }
-    for(let el of playerScoreBoard){
+    for (let el of playerScoreBoard) {
       el.classList.add("hidden");
     }
     computerScoreBoard[currentComputerScore].classList.remove("hidden");
@@ -192,7 +199,6 @@ function displayScoreIcon(currentPlayerScore, currentComputerScore) {
     playerScoreIcon[1].classList.add("hidden");
     playerScoreIcon[2].classList.remove("hidden");
     playerScoreIcon[3].classList.add("hidden");
-
     computerScoreIcon[1].classList.add("hidden");
     computerScoreIcon[2].classList.remove("hidden");
     computerScoreIcon[3].classList.add("hidden");
@@ -201,16 +207,16 @@ function displayScoreIcon(currentPlayerScore, currentComputerScore) {
 
 function game(playerChoice) {
   const result = playRound(playerChoice, getComputerChoice());
-    if (result == 0) {
-      computerScore++;
-      round++;
-    } else if (result == 1) {
-      playerScore++;
-      round++;
-    }
-    displayScoreIcon(currentPlayerScore, currentComputerScore);
-    updateRound(round);
- if(round == 5) {
+  if (result == 0) {
+    computerScore++;
+    round++;
+  } else if (result == 1) {
+    playerScore++;
+    round++;
+  }
+  displayScoreIcon(currentPlayerScore, currentComputerScore);
+  updateRound(round);
+  if (round == 5) {
     printResult(playerScore, computerScore);
   }
 }
@@ -235,7 +241,7 @@ function printResult(playerScore, computerScore) {
     roundUI.classList.add("end-result");
 
     updateRound("You Won !!!");
-  } else if(playerScore < computerScore){
+  } else if (playerScore < computerScore) {
     for (let el of playerScoreIcon) {
       if (el.dataset.icon == "lost") {
         el.classList.remove("hidden");
@@ -253,15 +259,14 @@ function printResult(playerScore, computerScore) {
     }
     roundUI.classList.add("end-result");
     updateRound("You Lost !!!");
-  }else{
+  } else {
     for (let el of playerScoreIcon) {
-        el.classList.add("hidden");
-      }
-
+      el.classList.add("hidden");
+    }
 
     for (let el of computerScoreIcon) {
-        el.classList.add("hidden");
-      }
+      el.classList.add("hidden");
+    }
 
     roundUI.classList.remove("end-result");
     updateRound(round);

@@ -129,10 +129,14 @@ h1{
 
 .selected {
   transform: translateY(30px) scale(1.5);
-  transition: all 0.25s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .end-result{
   font-size: 128px;
   top:45%
+}
+
+.clicked{
+  transform: scale(1.1);
 }
