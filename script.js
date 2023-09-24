@@ -1,6 +1,6 @@
 "use strict";
 
-let round = 1;
+let round = 0;
 const computerScoreBoard = document.querySelector(".computer-points").children;
 const computerScoreIcon = document.querySelector(".computer-icon").children;
 const playerScoreBoard = document.querySelector(".player-points").children;
@@ -38,7 +38,6 @@ function init() {
   playerScoreIcon[2].classList.remove("hidden");
 
   playerChoice.addEventListener("click", (e) => {
-    
     if (round < 6) {
       game(e.target.alt.split("-")[1]);
     }
@@ -172,17 +171,19 @@ function displayScoreIcon(currentPlayerScore, currentComputerScore) {
 
 function game(playerChoice) {
   const result = playRound(playerChoice, getComputerChoice());
-  if (result == 0) {
-    computerScore++;
-    round++;
-  } else if (result == 1) {
-    playerScore++;
-    round++;
-  }
-  displayScoreIcon(currentPlayerScore, currentComputerScore);
-  updateRound(round);
-  if (round > 5) {
+  if (round < 5) {
+    if (result == 0) {
+      computerScore++;
+      round++;
+    } else if (result == 1) {
+      playerScore++;
+      round++;
+    }
+    displayScoreIcon(currentPlayerScore, currentComputerScore);
+    updateRound(round);
+  }else{
     printResult(playerScore, computerScore);
+  
   }
 }
 
@@ -203,6 +204,7 @@ function printResult(playerScore, computerScore) {
         el.classList.add("hidden");
       }
     }
+    updateRound("You Won !!!");
   } else {
     for (let el of playerScoreIcon) {
       if (el.dataset.icon == "lost") {
@@ -219,7 +221,9 @@ function printResult(playerScore, computerScore) {
         el.classList.add("hidden");
       }
     }
+    updateRound("You Lost !!!");
   }
+  roundUI.classList.add("end-result")
   console.log(getResult(playerScore, computerScore));
 }
 
@@ -241,13 +245,8 @@ function titleCase(str = "") {
   }
 }
 
-function updateRound(round){
-  if(round < 6){
+function updateRound(round) {
   roundUI.textContent = round;
-  }else{
-    roundUI.textContent = "";
-  }
 }
 
 init();
-
