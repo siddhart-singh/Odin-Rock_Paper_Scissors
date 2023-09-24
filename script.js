@@ -1,15 +1,13 @@
 "use strict";
 
-let round = 5;
-const computerScoreBoard = document.querySelector(
-  ".computer-score > .points"
-).children;
+let round = 1;
+const computerScoreBoard = document.querySelector(".computer-points").children;
 const computerScoreIcon = document.querySelector(".computer-icon").children;
-const playerScoreBoard = document.querySelector(
-  ".player-score > .points"
-).children;
+const playerScoreBoard = document.querySelector(".player-points").children;
+const computerChoice = document.querySelector(".computer").children;
 const playerChoice = document.querySelector(".player");
 const playerScoreIcon = document.querySelector(".player-icon").children;
+const roundUI = document.querySelector(".round");
 let currentComputerScore = 0;
 let currentPlayerScore = 0;
 let playerScore = 0;
@@ -23,7 +21,7 @@ function init() {
   }
   computerScoreBoard[0].classList.remove("hidden");
 
-  for(let el of computerScoreIcon){
+  for (let el of computerScoreIcon) {
     el.classList.add("hidden");
   }
   computerScoreIcon[2].classList.remove("hidden");
@@ -34,23 +32,29 @@ function init() {
   }
   playerScoreBoard[0].classList.remove("hidden");
 
-  for(let el of playerScoreIcon){
+  for (let el of playerScoreIcon) {
     el.classList.add("hidden");
   }
-    playerScoreIcon[2].classList.remove("hidden");
+  playerScoreIcon[2].classList.remove("hidden");
 
   playerChoice.addEventListener("click", (e) => {
-    if (round > 0) {
+    
+    if (round < 6) {
       game(e.target.alt.split("-")[1]);
-    } else {
-      printResult(playerScore, computerScore);
     }
   });
 }
 
 function getComputerChoice() {
-  const computerChoice = ["rock", "paper", "scissor"];
-  return computerChoice[getRandomNumber(0, 2)];
+  const computerChoiceArray = ["rock", "paper", "scissor"];
+  const computerChoiceIndex = getRandomNumber(0, 2);
+  computerChoice[computerChoiceIndex].classList.add("selected");
+  computerChoice[computerChoiceIndex].addEventListener("transitionend", () => {
+    setTimeout(() => {
+      computerChoice[computerChoiceIndex].classList.remove("selected");
+    }, 500);
+  });
+  return computerChoiceArray[computerChoiceIndex];
 }
 
 function getRandomNumber(min, max) {
@@ -113,6 +117,7 @@ function printComputeResult(
   computerParity,
   optionsArray
 ) {
+  console.log(playerParity);
   if (result === "win") {
     playerScoreBoard[currentPlayerScore].classList.add("hidden");
     playerScoreBoard[++currentPlayerScore].classList.remove("hidden");
@@ -137,84 +142,86 @@ function printComputeResult(
   }
 }
 
-function displayScoreIcon(currentPlayerScore, currentComputerScore){
-    if(currentPlayerScore > currentComputerScore){
-        playerScoreIcon[1].classList.add("hidden");
-        playerScoreIcon[2].classList.add("hidden");
-        playerScoreIcon[3].classList.remove("hidden");
+function displayScoreIcon(currentPlayerScore, currentComputerScore) {
+  if (currentPlayerScore > currentComputerScore) {
+    playerScoreIcon[1].classList.add("hidden");
+    playerScoreIcon[2].classList.add("hidden");
+    playerScoreIcon[3].classList.remove("hidden");
 
-        computerScoreIcon[1].classList.remove("hidden");
-        computerScoreIcon[2].classList.add("hidden");
-        computerScoreIcon[3].classList.add("hidden");
-    }else if(currentPlayerScore < currentComputerScore){
-        playerScoreIcon[1].classList.remove("hidden");
-        playerScoreIcon[2].classList.add("hidden");
-        playerScoreIcon[3].classList.add("hidden");
+    computerScoreIcon[1].classList.remove("hidden");
+    computerScoreIcon[2].classList.add("hidden");
+    computerScoreIcon[3].classList.add("hidden");
+  } else if (currentPlayerScore < currentComputerScore) {
+    playerScoreIcon[1].classList.remove("hidden");
+    playerScoreIcon[2].classList.add("hidden");
+    playerScoreIcon[3].classList.add("hidden");
 
-        computerScoreIcon[1].classList.add("hidden");
-        computerScoreIcon[2].classList.add("hidden");
-        computerScoreIcon[3].classList.remove("hidden");
-    }
-    else{
-        playerScoreIcon[1].classList.add("hidden");
-        playerScoreIcon[2].classList.remove("hidden");
-        playerScoreIcon[3].classList.add("hidden");
+    computerScoreIcon[1].classList.add("hidden");
+    computerScoreIcon[2].classList.add("hidden");
+    computerScoreIcon[3].classList.remove("hidden");
+  } else {
+    playerScoreIcon[1].classList.add("hidden");
+    playerScoreIcon[2].classList.remove("hidden");
+    playerScoreIcon[3].classList.add("hidden");
 
-        computerScoreIcon[1].classList.add("hidden");
-        computerScoreIcon[2].classList.remove("hidden");
-        computerScoreIcon[3].classList.add("hidden");
-    }
+    computerScoreIcon[1].classList.add("hidden");
+    computerScoreIcon[2].classList.remove("hidden");
+    computerScoreIcon[3].classList.add("hidden");
+  }
 }
 
 function game(playerChoice) {
   const result = playRound(playerChoice, getComputerChoice());
   if (result == 0) {
     computerScore++;
-    round--;
+    round++;
   } else if (result == 1) {
     playerScore++;
-    round--;
+    round++;
   }
   displayScoreIcon(currentPlayerScore, currentComputerScore);
+  updateRound(round);
+  if (round > 5) {
+    printResult(playerScore, computerScore);
+  }
 }
 
 function printResult(playerScore, computerScore) {
-    if(playerScore > computerScore){
-        for(let el of playerScoreIcon){
-            if(el.dataset.icon == "won"){
-                el.classList.remove("hidden");
-            }else{
-                el.classList.add("hidden");
-            }
-        }
-
-        for(let el of computerScoreIcon){
-            if(eldataset.icon == "lost"){
-                el.classList.remove("hidden");
-            }else{
-                el.classList.add("hidden");
-            }
-        }
-    }else{
-        for(let el of playerScoreIcon){
-            if(el.dataset.icon == "lost"){
-                el.classList.remove("hidden");
-            }else{
-                el.classList.add("hidden");
-            }
-        }
-
-        for(let el of computerScoreIcon){
-            if(el.dataset.icon == "won"){
-                el.classList.remove("hidden");
-            }else{
-                el.classList.add("hidden");
-            }
-        }
+  if (playerScore > computerScore) {
+    for (let el of playerScoreIcon) {
+      if (el.dataset.icon == "won") {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
     }
+
+    for (let el of computerScoreIcon) {
+      if (el.dataset.icon == "lost") {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+  } else {
+    for (let el of playerScoreIcon) {
+      if (el.dataset.icon == "lost") {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+
+    for (let el of computerScoreIcon) {
+      if (el.dataset.icon == "won") {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+  }
   console.log(getResult(playerScore, computerScore));
 }
-
 
 function getResult(playerScore, computerScore) {
   if (playerScore > computerScore) {
@@ -234,4 +241,13 @@ function titleCase(str = "") {
   }
 }
 
+function updateRound(round){
+  if(round < 6){
+  roundUI.textContent = round;
+  }else{
+    roundUI.textContent = "";
+  }
+}
+
 init();
+
