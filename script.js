@@ -13,8 +13,12 @@ let currentPlayerScore = 0;
 let playerScore = 0;
 let computerScore = 0;
 round = 0;
+
+let backgroudMusic = new Audio("./audio/background-audio.mp3")
+backgroudMusic.loop = true;
 function init() {
   //Computer Score
+
 
   for (let el of computerScoreBoard) {
     el.classList.add("hidden");
@@ -38,6 +42,7 @@ function init() {
   playerScoreIcon[2].classList.remove("hidden");
 
   playerChoice.addEventListener("click", (e) => {
+    backgroudMusic.play();
     if (round == 5) {
       reset();
     } else {

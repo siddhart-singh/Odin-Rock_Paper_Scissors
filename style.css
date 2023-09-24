@@ -140,3 +140,41 @@ h1{
 .clicked{
   transform: scale(1.1);
 }
+
+footer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  font-weight: 700;
+  color: white;
+  width: 100vw;
+
+}
+
+.social{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 1%;
+}
+
+.social a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+}
+
+.social img{
+  width: 50px;
+  height: 50px;
+}
+
+.instructions{
+  position: absolute;
+  right: 1%;
+  top: 30%
+}
