@@ -1,6 +1,6 @@
 "use strict";
 
-let round = 0;
+let round;
 const computerScoreBoard = document.querySelector(".computer-points").children;
 const computerScoreIcon = document.querySelector(".computer-icon").children;
 const playerScoreBoard = document.querySelector(".player-points").children;
@@ -12,7 +12,7 @@ let currentComputerScore = 0;
 let currentPlayerScore = 0;
 let playerScore = 0;
 let computerScore = 0;
-
+round = 0;
 function init() {
   //Computer Score
 
@@ -38,10 +38,24 @@ function init() {
   playerScoreIcon[2].classList.remove("hidden");
 
   playerChoice.addEventListener("click", (e) => {
-    if (round < 6) {
+    if (round == 5) {
+      reset()
+    }else{
       game(e.target.alt.split("-")[1]);
     }
   });
+}
+
+function reset() {
+  round = 0;
+  currentComputerScore = 0;
+  currentPlayerScore = 0;
+  playerScore = 0;
+  computerScore = 0;
+  printResult();
+  displayScoreIcon(currentPlayerScore, currentComputerScore);
+  displayScoreValue();
+  
 }
 
 function getComputerChoice() {
@@ -116,10 +130,8 @@ function printComputeResult(
   computerParity,
   optionsArray
 ) {
-  console.log(playerParity);
   if (result === "win") {
-    playerScoreBoard[currentPlayerScore].classList.add("hidden");
-    playerScoreBoard[++currentPlayerScore].classList.remove("hidden");
+    displayScoreValue("win");
     console.log(
       `You Win! ${titleCase(optionsArray[playerParity])} beats ${titleCase(
         optionsArray[computerParity]
@@ -127,8 +139,7 @@ function printComputeResult(
     );
     return 1;
   } else if (result === "lose") {
-    computerScoreBoard[currentComputerScore].classList.add("hidden");
-    computerScoreBoard[++currentComputerScore].classList.remove("hidden");
+    displayScoreValue("lose");
     console.log(
       `You Lose! ${titleCase(optionsArray[computerParity])} beats ${titleCase(
         optionsArray[playerParity]
@@ -138,6 +149,25 @@ function printComputeResult(
   } else {
     console.log(`Draw! Both picked ${titleCase(optionsArray[playerParity])}`);
     return 2;
+  }
+}
+
+function displayScoreValue(result="reset"){
+  if(result === "win"){
+    playerScoreBoard[currentPlayerScore].classList.add("hidden");
+    playerScoreBoard[++currentPlayerScore].classList.remove("hidden");
+  }else if(result === "lose"){
+    computerScoreBoard[currentComputerScore].classList.add("hidden");
+    computerScoreBoard[++currentComputerScore].classList.remove("hidden");
+  }else{
+    for(let el of computerScoreBoard){
+      el.classList.add("hidden");
+    }
+    for(let el of playerScoreBoard){
+      el.classList.add("hidden");
+    }
+    computerScoreBoard[currentComputerScore].classList.remove("hidden");
+    playerScoreBoard[currentPlayerScore].classList.remove("hidden");
   }
 }
 
@@ -171,7 +201,6 @@ function displayScoreIcon(currentPlayerScore, currentComputerScore) {
 
 function game(playerChoice) {
   const result = playRound(playerChoice, getComputerChoice());
-  if (round < 5) {
     if (result == 0) {
       computerScore++;
       round++;
@@ -181,9 +210,8 @@ function game(playerChoice) {
     }
     displayScoreIcon(currentPlayerScore, currentComputerScore);
     updateRound(round);
-  }else{
+ if(round == 5) {
     printResult(playerScore, computerScore);
-  
   }
 }
 
@@ -204,8 +232,10 @@ function printResult(playerScore, computerScore) {
         el.classList.add("hidden");
       }
     }
+    roundUI.classList.add("end-result");
+
     updateRound("You Won !!!");
-  } else {
+  } else if(playerScore < computerScore){
     for (let el of playerScoreIcon) {
       if (el.dataset.icon == "lost") {
         el.classList.remove("hidden");
@@ -221,9 +251,21 @@ function printResult(playerScore, computerScore) {
         el.classList.add("hidden");
       }
     }
+    roundUI.classList.add("end-result");
     updateRound("You Lost !!!");
+  }else{
+    for (let el of playerScoreIcon) {
+        el.classList.add("hidden");
+      }
+
+
+    for (let el of computerScoreIcon) {
+        el.classList.add("hidden");
+      }
+
+    roundUI.classList.remove("end-result");
+    updateRound(round);
   }
-  roundUI.classList.add("end-result")
   console.log(getResult(playerScore, computerScore));
 }
 
