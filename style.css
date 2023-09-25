@@ -4,11 +4,12 @@
 /* 4. RGB(58, 110, 165) */
 /* 5. RGB(0, 78, 152) */
 
+@import url('https://fonts.googleapis.com/css2?family=Mooli&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Dela Gothic One", cursive;
 }
 
 .hidden {
@@ -86,7 +87,7 @@ h1 {
   font-size: 55vh;
   margin: auto;
   top: 24%;
-  font-family: "Mooli", sans-serif;
+
   color: rgba(255, 255, 255, 0.5);
   font-family: "Lilita One", cursive;
   z-index: -1;
@@ -142,9 +143,9 @@ footer {
   left: 0;
   bottom: 0;
   display: flex;
-  font-weight: 700;
   color: white;
   width: 100vw;
+  font-weight: 700;
 }
 
 .social {
@@ -153,7 +154,7 @@ footer {
   align-items: center;
   position: relative;
   left: 1%;
-  font-family: "Lilita One", cursive;
+  font-family: 'Mooli', sans-serif;
 }
 
 .social a {
@@ -161,6 +162,7 @@ footer {
   justify-content: center;
   align-items: center;
   color: white;
+  font-family: 'Mooli', sans-serif;
 }
 
 .social img {
@@ -172,4 +174,5 @@ footer {
   position: absolute;
   right: 1%;
   top: 30%;
+  font-family: 'Mooli', sans-serif;
 }
